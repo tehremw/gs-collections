@@ -12,6 +12,8 @@ export function useCartSummary() {
     let problem = "";
     if (!item) {
       problem = "This bracelet is no longer available.";
+    } else if (item.stock === 0) {
+      problem = "This bracelet is now sold out. Remove it to continue.";
     } else {
       const check = validateQuantity(qtyOf(item.id), item.stock);
       if (!check.valid) problem = `${check.message} Please reduce the quantity.`;

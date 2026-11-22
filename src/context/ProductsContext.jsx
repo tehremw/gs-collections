@@ -1,12 +1,20 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { loadBracelets } from "../services/mockLoader";
+import { readJSON, writeJSON } from "../utils/storage";
 
 const ProductsContext = createContext(null);
+const STOCK_KEY = "gs-demo-stock-v1";
+
+function readOverrides() {
+  const saved = readJSON(STOCK_KEY, {});
+  return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+}
 
 export function ProductsProvider({ children }) {
-  const [items, setItems] = useState([]);
-  const [status, setStatus] = useState("loading");
+  const [loaded, setLoaded] = useState([]);
+  const [status, setStatus] = useState("loading"); // loading | error | ready
   const [attempt, setAttempt] = useState(0);
+  const [overrides, setOverrides] = useState(readOverrides);
 
   useEffect(() => {
     let cancelled = false;
@@ -14,7 +22,7 @@ export function ProductsProvider({ children }) {
     loadBracelets()
       .then((data) => {
         if (!cancelled) {
-          setItems(data);
+          setLoaded(data);
           setStatus("ready");
         }
       })
@@ -26,10 +34,25 @@ export function ProductsProvider({ children }) {
     };
   }, [attempt]);
 
+  useEffect(() => {
+    writeJSON(STOCK_KEY, overrides);
+  }, [overrides]);
+
+  const items = useMemo(
+    () =>
+      loaded.map((item) => {
+        const v = overrides[item.id];
+        return Number.isInteger(v) && v >= 0 ? { ...item, stock: v } : item;
+      }),
+    [loaded, overrides]
+  );
+
   const retry = () => setAttempt((a) => a + 1);
+  const setStock = (id, stock) => setOverrides((prev) => ({ ...prev, [id]: stock }));
+  const resetStock = () => setOverrides({});
 
   return (
-    <ProductsContext.Provider value={{ items, status, retry }}>
+    <ProductsContext.Provider value={{ items, status, retry, overrides, setStock, resetStock }}>
       {children}
     </ProductsContext.Provider>
   );

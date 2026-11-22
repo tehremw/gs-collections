@@ -1,20 +1,28 @@
 import { bracelets } from "../data/bracelets";
 
-// Demo switch: run localStorage.setItem("gs-demo-fail", "true") in the
-// browser console to make the next load fail. We'll turn this into a
-// labelled button later.
-function shouldFail() {
+const FAIL_KEY = "gs-demo-fail";
+
+export function isDemoFailureOn() {
   try {
-    return localStorage.getItem("gs-demo-fail") === "true";
+    return localStorage.getItem(FAIL_KEY) === "true";
   } catch {
     return false;
+  }
+}
+
+export function setDemoFailure(on) {
+  try {
+    if (on) localStorage.setItem(FAIL_KEY, "true");
+    else localStorage.removeItem(FAIL_KEY);
+  } catch {
+    // storage blocked: ignore
   }
 }
 
 export function loadBracelets() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (shouldFail()) reject(new Error("Could not load bracelets"));
+      if (isDemoFailureOn()) reject(new Error("Could not load bracelets"));
       else resolve(bracelets);
     }, 600);
   });

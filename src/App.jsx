@@ -8,6 +8,7 @@ import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
+import Demo from "./pages/Demo";
 import { BUSINESS } from "./data/business";
 import { useCart } from "./context/CartContext";
 
@@ -74,6 +75,7 @@ export default function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -85,7 +87,12 @@ export default function App() {
           <div><h2>Follow us</h2><a className="insta" href={BUSINESS.instagramUrl} target="_blank" rel="noopener noreferrer">
             <InstagramIcon />Instagram<span className="sr-only"> (opens in a new tab)</span></a></div>
         </div>
-        <div className="container"><p className="footer-note"></p></div>
+        <div className="container">
+          <p className="footer-note">
+            Student project: all orders are simulated and no payment is taken.{" "}
+            <Link to="/demo">Demo controls (for markers)</Link>
+          </p>
+        </div>
       </footer>
     </>
   );
