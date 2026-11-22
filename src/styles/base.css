@@ -1,0 +1,11 @@
+:root { font-family: system-ui, sans-serif; line-height: 1.5; }
+body { margin: 0; padding: 1rem; }
+form[role="search"] { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-bottom: 1rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; list-style: none; padding: 0; }
+.card { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; }
+.swatch { height: 120px; border-radius: 6px; }
+.badge { font-weight: 600; }
+.badge-out { color: #8a1c1c; }
+.badge-low { color: #8a5a00; }
+.badge-in { color: #1b6b3a; }
+:focus-visible { outline: 3px solid #1f3a6e; outline-offset: 2px; }
