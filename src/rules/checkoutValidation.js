@@ -12,7 +12,6 @@ export function validateCheckout(values, fulfilment) {
     errors.phone = "Use a Pakistani mobile format like 0300-1234567.";
 
   if (fulfilment === "delivery") {
-    if (!values.area) errors.area = "Choose your delivery area.";
     const address = values.address.trim();
     if (!address) errors.address = "Enter a delivery address.";
     else if (address.length < 10)

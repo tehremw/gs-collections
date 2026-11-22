@@ -24,8 +24,8 @@ export default function Confirmation() {
       <p>Order number: <strong>{order.orderNo}</strong></p>
       <p>
         {order.fulfilment === "pickup"
-          ? "Pickup from our collection point (demo)."
-          : `Delivery to ${order.area}.`}
+          ? "Pickup from FAST NUCES Islamabad."
+          : "Delivery to Islamabad and Rawalpindi."}
       </p>
       <ul>
         {order.items.map((it) => (

@@ -12,7 +12,7 @@ export default function Cart() {
   const { rows, subtotal, totals, hasConflict, fulfilment, status, retry } = useCartSummary();
 
   if (lines.length === 0) return (
-    <div><h1>Your cart</h1><p>Your cart is empty.</p><Link to="/shop">Browse bracelets</Link></div>
+    <div className="cart-page"><h1>Your cart</h1><p>Your cart is empty.</p><Link to="/shop">Browse bracelets</Link></div>
   );
   if (status === "loading") return <p role="status">Loading your cart…</p>;
   if (status === "error") return (
@@ -20,7 +20,7 @@ export default function Cart() {
   );
 
   return (
-    <div>
+    <div className="cart-page">
       <h1>Your cart</h1>
       <ul className="cart-list">
         {rows.map(({ line, item, problem }) => (
