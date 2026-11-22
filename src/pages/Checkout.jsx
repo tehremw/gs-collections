@@ -206,7 +206,7 @@ export default function Checkout() {
                 {item ? (
                   <div className="checkout-thumb">
                     <ProductImage image={imagesFor(item, line.color)[0]} name={item.name} />
-                    <span className="checkout-qty" aria-label={`Quantity ${line.qty}`}>
+                    <span className="checkout-qty" aria-label={`Quantity  ${line.qty}`}>
                       {line.qty}
                     </span>
                   </div>
