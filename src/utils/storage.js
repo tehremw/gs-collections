@@ -13,3 +13,19 @@ export function writeJSON(key, value) {
   } catch {
   }
 }
+
+export function readSessionJSON(key, fallback) {
+  try {
+    const raw = sessionStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export function writeSessionJSON(key, value) {
+  try {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  } catch {
+  }
+}

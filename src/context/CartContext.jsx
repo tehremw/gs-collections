@@ -3,6 +3,7 @@ import { readJSON, writeJSON } from "../utils/storage";
 
 const CartContext = createContext(null);
 const STORAGE_KEY = "gs-cart-v1";
+const FULFIL_KEY = "gs-fulfilment-v1";
 
 const makeKey = ({ id, size, initials }) => `${id}|${size}|${initials}`;
 
@@ -23,6 +24,14 @@ export function CartProvider({ children }) {
   useEffect(() => {
     writeJSON(STORAGE_KEY, lines);
   }, [lines]);
+
+  const [fulfilment, setFulfilment] = useState(() =>
+    readJSON(FULFIL_KEY, "delivery") === "pickup" ? "pickup" : "delivery"
+  );
+
+  useEffect(() => {
+    writeJSON(FULFIL_KEY, fulfilment);
+  }, [fulfilment]);
 
   function addLine(line) {
     const key = makeKey(line);
@@ -51,7 +60,7 @@ export function CartProvider({ children }) {
   const count = lines.reduce((sum, l) => sum + l.qty, 0);
 
   return (
-    <CartContext.Provider value={{ lines, addLine, setQty, removeLine, clearCart, qtyOf, count }}>
+    <CartContext.Provider value={{ lines, addLine, setQty, removeLine, clearCart, qtyOf, count, fulfilment, setFulfilment }}>
       {children}
     </CartContext.Provider>
   );

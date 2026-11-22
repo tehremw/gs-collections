@@ -19,3 +19,12 @@ form[role="search"] { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-it
 .success { color: #1b6b3a; font-weight: 600; }
 .btn-primary { display: inline-block; background: #1f3a6e; color: #fff; border: 0; border-radius: 8px; padding: 0.75rem 1.25rem; text-decoration: none; cursor: pointer; }
 .btn-primary:disabled { background: #9aa3b5; cursor: not-allowed; }
+.field { margin: 0.75rem 0; display: flex; flex-direction: column; gap: 0.25rem; max-width: 28rem; }
+.field input, .field select, .field textarea { font: inherit; padding: 0.6rem; min-height: 44px; }
+.field [aria-invalid="true"] { border: 2px solid #8a1c1c; }
+.summary { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; margin: 1rem 0; max-width: 28rem; }
+.summary dl { margin: 0; }
+.summary dl div { display: flex; justify-content: space-between; padding: 0.25rem 0; }
+.summary dt, .summary dd { margin: 0; }
+.summary-total { font-weight: 700; border-top: 1px solid #ccc; margin-top: 0.25rem; padding-top: 0.5rem !important; }
+.sim-banner { background: #fff4d6; border: 1px solid #d9b44a; padding: 0.5rem 0.75rem; border-radius: 6px; }
