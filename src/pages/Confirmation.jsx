@@ -29,9 +29,10 @@ export default function Confirmation() {
       </p>
       <ul>
         {order.items.map((it) => (
-          <li key={`${it.name}-${it.size}-${it.initials}`}>
+          <li key={`${it.name}-${it.size}-${it.initials}-${it.color}`}>
             {it.qty} × {it.name} (size {it.size}
-            {it.initials && `, initials ${it.initials}`}) · Rs {(it.qty * it.unitPrice).toLocaleString()}
+            {it.color && `, ${it.color}`}
+            {it.initials && `, name ${it.initials}`}) · Rs {(it.qty * it.unitPrice).toLocaleString()}
           </li>
         ))}
       </ul>

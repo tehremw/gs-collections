@@ -4,7 +4,7 @@ export default function QuantityControl({ value, onChange, stock, inCart, canInc
   return (
     <div className="qty">
       <label htmlFor="qty-input">Quantity</label>
-      <div className="qty-row">
+      <div className="stepper">
         <button
           type="button"
           aria-label="Decrease quantity"

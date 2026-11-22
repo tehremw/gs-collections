@@ -5,7 +5,7 @@ const CartContext = createContext(null);
 const STORAGE_KEY = "gs-cart-v1";
 const FULFIL_KEY = "gs-fulfilment-v1";
 
-const makeKey = ({ id, size, initials }) => `${id}|${size}|${initials}`;
+const makeKey = ({ id, size, initials, color }) => `${id}|${size}|${initials}|${color}`;
 
 function readSaved() {
   const saved = readJSON(STORAGE_KEY, []);
@@ -13,7 +13,7 @@ function readSaved() {
   return saved
     .filter((l) => l && typeof l.id === "string" && Number.isInteger(l.qty) && l.qty > 0)
     .map((l) => {
-      const line = { id: l.id, size: l.size ?? "", initials: l.initials ?? "", qty: l.qty };
+      const line = { id: l.id, size: l.size ?? "", initials: l.initials ?? "", color: l.color ?? "", qty: l.qty };
       return { ...line, key: makeKey(line) };
     });
 }

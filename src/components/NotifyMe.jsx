@@ -21,7 +21,6 @@ export default function NotifyMe({ itemId }) {
 
   return (
     <div>
-      <p className="badge badge-out">Sold out</p>
       <button type="button" onClick={toggle} aria-pressed={on}>
         {on ? "✓ You'll be notified (demo). Tap to undo" : "Notify me when back in stock"}
       </button>

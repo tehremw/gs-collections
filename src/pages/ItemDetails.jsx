@@ -1,6 +1,45 @@
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductsContext";
+import { availabilityOf } from "../utils/availability";
 import AddToCart from "../components/AddToCart";
+import ProductGallery from "../components/ProductGallery";
+import { imagesFor } from "../utils/images";
+
+function ItemView({ item }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [color, setColor] = useState(item.colors ? item.colors[0].label : "");
+  const { label, tone } = availabilityOf(item);
+  const images = imagesFor(item, color);
+  const canGoBack = location.key !== "default";
+
+  return (
+    <article>
+      <p>
+        {canGoBack ? (
+          <button type="button" onClick={() => navigate(-1)}>← Back to results</button>
+        ) : (
+          <Link to="/shop">← All bracelets</Link>
+        )}
+      </p>
+      <div className="details">
+        <ProductGallery key={color} images={images} name={item.name} />
+        <div>
+          <h1>{item.name}</h1>
+          <p className="details-price">Rs {item.price.toLocaleString()}</p>
+          <p className={`badge ${tone}`}>{label}</p>
+          <p>{item.description}</p>
+          <dl className="spec">
+            <dt>Material</dt><dd>{item.material}</dd>
+            <dt>Category</dt><dd>{item.category}</dd>
+          </dl>
+          <AddToCart item={item} color={color} onColorChange={setColor} />
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function ItemDetails() {
   const { id } = useParams();
@@ -24,20 +63,5 @@ export default function ItemDetails() {
       </div>
     );
 
-  return (
-    <article>
-      <h1>{item.name}</h1>
-      <p>Rs {item.price.toLocaleString()}</p>
-      <p>{item.description}</p>
-      <dl>
-        <dt>Material</dt>
-        <dd>{item.material}</dd>
-        <dt>Category</dt>
-        <dd>{item.category}</dd>
-        <dt>Availability</dt>
-        <dd>{item.stock === 0 ? "Sold out" : `${item.stock} in stock`}</dd>
-      </dl>
-      <AddToCart key={item.id} item={item} />
-    </article>
-  );
+  return <ItemView key={item.id} item={item} />;
 }

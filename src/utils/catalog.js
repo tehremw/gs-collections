@@ -1,11 +1,16 @@
-export const CATEGORIES = ["Beaded", "Woven", "Charm", "Gift Set"];
+export const CATEGORIES = ["Beaded", "Sets", "Custom Name", "Necklace"];
 
-export function filterAndSort(items, { q = "", category = "all", inStockOnly = false, sort = "featured" }) {
+export function filterAndSort(
+  items,
+  { q = "", category = "all", inStockOnly = false, sort = "featured", min = null, max = null }
+) {
   const needle = q.trim().toLowerCase();
 
   const result = items.filter((item) => {
     if (category !== "all" && item.category !== category) return false;
     if (inStockOnly && item.stock === 0) return false;
+    if (min !== null && item.price < min) return false;
+    if (max !== null && item.price > max) return false;
     if (needle) {
       const text = `${item.name} ${item.material} ${item.category} ${item.description}`.toLowerCase();
       if (!text.includes(needle)) return false;

@@ -71,6 +71,7 @@ export default function Checkout() {
         name: item.name,
         size: line.size,
         initials: line.initials,
+        color: line.color,
         qty: line.qty,
         unitPrice: item.price,
       })),
