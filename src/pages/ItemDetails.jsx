@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductsContext";
+import AddToCart from "../components/AddToCart";
 
 export default function ItemDetails() {
   const { id } = useParams();
@@ -36,12 +37,7 @@ export default function ItemDetails() {
         <dt>Availability</dt>
         <dd>{item.stock === 0 ? "Sold out" : `${item.stock} in stock`}</dd>
       </dl>
-      <h2>Sizes</h2>
-      <ul>
-        {item.sizes.map((s) => (
-          <li key={s.label}>{s.label}: {s.fits}</li>
-        ))}
-      </ul>
+      <AddToCart key={item.id} item={item} />
     </article>
   );
 }

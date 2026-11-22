@@ -6,15 +6,17 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import NotFound from "./pages/NotFound";
+import { useCart } from "./context/CartContext";
 
 export default function App() {
+  const { count } = useCart();
   return (
     <>
       <header>
         <nav aria-label="Main">
           <Link to="/">g.s.__collections</Link>{" "}
           <Link to="/shop">Shop</Link>{" "}
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">Cart ({count})</Link>
         </nav>
       </header>
       <main>
